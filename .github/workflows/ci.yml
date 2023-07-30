@@ -23,6 +23,7 @@ jobs:
         repository: ${{ secrets.SECRETREPO }}
         token: ${{ secrets.SECRETREPOKEY }}
         path: deps_repo
+        ref: master
 
     - name: Build Dependencies
       run: cp deps_repo/pokestadium/* .
