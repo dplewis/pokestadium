@@ -505,7 +505,7 @@
     - {vram: 0x800A62E0, type: .bss, name: 5580}
     - {vram: 0x800A6D20, type: .bss, name: reset}
     - {vram: 0x800A7320, type: .bss, name: controller}
-    - {vram: 0x800A7420, type:  bss, name: unk_bss_3} # 6A40
+    - {vram: 0x800A7420, type: .bss, name: 6A40}
     - {vram: 0x800A7450, type: .bss, name: stage_loader}
     - {vram: 0x800A74C0, type: .bss, name: crash_screen}
     - {vram: 0x800A7EA0, type: .bss, name: profiler}
@@ -531,7 +531,7 @@
     - {vram: 0x800AE520, type: .bss, name: 29BA0}
     - {vram: 0x800AF740, type: .bss, name: 2E110}
     - {vram: 0x800AF750, type: .bss, name: 2E460}
-    - {vram: 0x800AF770, type:  bss, name: unk_bss_7} # 32D10
+    - {vram: 0x800AF770, align: 4, type: .bss, name: 32D10} # 
     - {vram: 0x800AF7C0, type: .bss, name: 334D0}
     - {vram: 0x800B2F50, type:  bss, name: unk_bss_9} # 33FE0
     - {vram: 0x800B32A0, type: .bss, name: 373A0}

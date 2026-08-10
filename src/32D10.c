@@ -1,22 +1,23 @@
 #include "32D10.h"
 #include "334D0.h"
 #include "12D80.h"
+#include "macros.h"
 #include "src/util.h"
 #include "src/memmap.h"
 #include "src/fragments/31/fragment31.h"
 
-extern u8 D_800AF770[8];
-extern s16 D_800AF778[4];
-extern s16 D_800AF780[4];
-extern s16 D_800AF788[4];
-extern s16 D_800AF790[4];
-extern s16 D_800AF798[4];
-extern s16 D_800AF7A0[4];
-extern s32 D_800AF7A8;
-extern s16 D_800AF7AC;
-extern s16 D_800AF7AE;
-extern s16 D_800AF7B0[2];
-extern s16 D_800AF7B4[6];
+u8 D_800AF770[8];
+s16 D_800AF778[4];
+s16 D_800AF780[4];
+s16 D_800AF788[4];
+s16 D_800AF790[4];
+s16 D_800AF798[4];
+s16 D_800AF7A0[4];
+s32 D_800AF7A8;
+s16 D_800AF7AC;
+s16 D_800AF7AE;
+s16 D_800AF7B0[2];
+s16 D_800AF7B4[6];
 
 void func_80032110(u8 arg0, s16 arg1) {
     D_800AF778[arg0] = 0x167 - ((arg1 % 10) * 0x24);
