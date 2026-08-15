@@ -45,7 +45,9 @@ options:
   asm_function_macro: glabel
   asm_jtbl_label_macro: jlabel
   asm_data_macro: dlabel
-  include_macro_inc: False
+  asm_end_label: ""
+  asm_data_end_label: ""
+  asm_nonmatching_label_macro: ""
   libultra_symbols: True
   hardware_regs: True
   asm_emit_size_directive: False

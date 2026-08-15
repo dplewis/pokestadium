@@ -1,19 +1,48 @@
-.macro glabel label
-    .global \label
+# This file is used by modern gas.
+# Defines the expected assembly macros
+
+# Evaluate this file only once in case it's included more than once
+.ifndef _MACRO_INC_GUARD
+.internal _MACRO_INC_GUARD
+.set _MACRO_INC_GUARD, 1
+
+# A function symbol.
+.macro glabel label, visibility=global
+    .\visibility \label
     .type \label, @function
+    \label:
+        .ent \label
+.endm
+
+# An alternative entry to a function.
+.macro alabel label, visibility=global
+    .\visibility \label
+    .type \label, @function
+    \label:
+        .aent \label
+.endm
+
+# A label referenced by an error handler table.
+.macro ehlabel label, visibility=global
+    .\visibility \label
     \label:
 .endm
 
-.macro dlabel label
-    .global \label
+
+# A label referenced by a jumptable.
+.macro jlabel label, visibility=global
+    .\visibility \label
     \label:
 .endm
 
-.macro jlabel label
-    .global \label
-    .type \label, @function
+
+# A data symbol.
+.macro dlabel label, visibility=global
+    .\visibility \label
+    .type \label, @object
     \label:
 .endm
+
 
 # COP0 register aliases
 
@@ -50,8 +79,7 @@
 .set ErrorEPC,      $30
 .set Reserved31,    $31
 
-
-# Float register aliases (o32 ABI, odd ones are rarely used)
+# Float register aliases
 
 .set $fv0,          $f0
 .set $fv0f,         $f1
@@ -85,3 +113,5 @@
 .set $fs4f,         $f29
 .set $fs5,          $f30
 .set $fs5f,         $f31
+
+.endif
