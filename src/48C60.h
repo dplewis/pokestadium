@@ -3,6 +3,8 @@
 
 #include "global.h"
 
+extern u8 D_80078A20[16];
+
 void func_80048060(s32, s32, s32, s32);
 void func_80048464(void);
 
