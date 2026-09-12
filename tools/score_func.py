@@ -42,9 +42,20 @@ def find_asm(name):
 
 
 def read_expected(path):
-    """Return (rom_offset_of_first_instr, vaddr_of_first_instr, [words])."""
-    rows = []
+    """Return (rom_offset_of_first_instr, vaddr_of_first_instr, [words]).
+
+    Only lines after the `glabel` count as instructions. When a segment has
+    migrated rodata, the function's .s begins with a `.late_rodata` section
+    holding its jump tables, and those entries look exactly like instruction
+    lines -- reading them as code silently scores the wrong bytes entirely.
+    """
+    rows, in_text = [], False
     for line in path.read_text().splitlines():
+        if line.startswith("glabel"):
+            in_text = True
+            continue
+        if not in_text:
+            continue
         m = S_RE.match(line)
         if m:
             rows.append((int(m.group(1), 16), int(m.group(2), 16), int(m.group(3), 16)))
