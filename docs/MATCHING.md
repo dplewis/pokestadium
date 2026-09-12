@@ -245,6 +245,43 @@ u32 func_81207494(u16 arg0, u16 arg1, u16 arg2) {
   candidate under `#ifdef NON_MATCHING`, the `#pragma GLOBAL_ASM` in the
   `#else`. The ROM keeps matching and the work is not lost.
 
+## "It matches on decomp.me but not in the project"
+
+Almost always a **context** difference, not a codegen mystery. decomp.me is
+given one flattened file in which everything the function touches is already
+declared. The project is not: a callee whose header you forgot to include is
+implicitly declared, and IDO then assumes it returns `int` and applies default
+argument promotions. That changes register allocation around the call while
+leaving the instruction stream intact.
+
+The signature of this failure is distinctive. `diff.py` shows **no structural
+differences at all** -- every line is marked `r` (register) or `s` (stack slot),
+often as a clean swap of two registers and their two spill slots:
+
+```
+48cd8:  lw   t0,0x64(sp)      r   48cd8:  lw   a3,0x64(sp)
+48dec:  sw   a3,0x4c(sp)      s   48dec:  sw   a3,0x64(sp)
+48df4:  sw   t0,0x64(sp)      s   48df4:  sw   t0,0x4c(sp)
+```
+
+Do not go looking for a source permutation. Ask the compiler instead:
+
+```bash
+touch src/<file>.c && make build/src/<file>.o 2>&1 | grep "Warning 835"
+```
+
+IDO's Warning 835 -- "No prototype for the call to an anonymous function" --
+names every call it could not see a declaration for. Add the headers that
+declare them and rebuild. `func_80048060` in `48C60.c` matched on decomp.me and
+failed in the project for exactly this reason; it was missing `4B940.h`,
+`4F410.h` and `51740.h`, and adding those three includes matched it outright
+with no change to the C.
+
+Worth grepping for proactively: a clean build of a file you are working in
+should have zero Warning 835 for functions you call. The host `CC_CHECK` pass
+reports the same thing as `-Wimplicit-function-declaration`, which is easier to
+spot in the build log.
+
 ## Jump tables and rodata migration
 
 A function containing a `switch` large enough for IDO to build a jump table
