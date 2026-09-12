@@ -585,7 +585,9 @@ typedef struct unk_D_8122B2C0 {
     /* 0x05D64 */ u8* transferBuffer;
     /* 0x05D68 */ u32 gbAddress;
     /* 0x05D6C */ s32 transferSize;
-    /* 0x05D70 */ u32 unk_5D70[4];
+    /* 0x05D70 */ u32 unk_5D70[2];
+    /* 0x05D78 */ u16* unk_5D78;
+    /* 0x05D7C */ u32 unk_5D7C;
     /* 0x05D80 */ u32 unk_5D80[4];
     /* 0x05D90 */ u32 unk_5D90[4];
     /* 0x05DA0 */ u16 unk_5DA0;
@@ -593,7 +595,8 @@ typedef struct unk_D_8122B2C0 {
     /* 0x05DA4 */ char unk05DA4[0x20];
     /* 0x05DC4 */ u8 unk_5DC4;
     /* 0x05DC5 */ u8 unk_5DC5;
-    /* 0x05DC6 */ char unk05DC6[0x2];
+    /* 0x05DC6 */ u8 unk_5DC6;
+    /* 0x05DC7 */ char unk05DC7[0x1];
     /* 0x05DC8 */ volatile u8 unk_5DC8;
     /* 0x05DC9 */ u8 unk_5DC9;
     /* 0x05DCA */ u8 unk_5DCA;
